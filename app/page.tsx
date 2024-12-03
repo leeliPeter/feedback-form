@@ -50,7 +50,7 @@ export default function FeedbackPage() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit() {
     setIsLoading(true);
 
     try {
@@ -58,13 +58,15 @@ export default function FeedbackPage() {
       await new Promise((resolve) => setTimeout(resolve, 6000));
       setShowSuccessDialog(true);
       form.reset();
-    } catch (error) {
+    } catch (err) {
       toast({
         variant: "destructive",
         title: "Error",
         description:
           "There was an error submitting your feedback. Please try again.",
       });
+      // Log error for debugging
+      console.error(err);
     } finally {
       setIsLoading(false);
     }
